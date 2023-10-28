@@ -54,7 +54,9 @@ async def RegistrationService(data: RegistrationShema):
                 'message': {
                     'ru': 'Регистрация прошла успешно',
                     'en': 'Registration was successful'
-                }
+                },
+                'uuid': str(user.uuid),
+                'email': user.email,
             }
 
     except Exception as e:

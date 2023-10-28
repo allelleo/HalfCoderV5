@@ -1,0 +1,12 @@
+version: "3.8"
+   services:
+     tutorial:
+       build:
+         context: .
+         dockerfile: Dockerfile
+       ports:
+         - "80:80"
+       volumes:
+         - .:/app
+         - /app/.venv
+       command: ["uvicorn", "app.app:app", "--host", "0.0.0.0", "--port", "80"]

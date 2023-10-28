@@ -2,12 +2,12 @@
 
 from tortoise.fields import (
     IntField, CharField, ForeignKeyField,
-    ManyToManyField, OneToOneField, BinaryField
+    ManyToManyField, OneToOneField, BinaryField, BooleanField, UUIDField
 )
 import bcrypt
 from app.abstracts import TimesBaseModel, RatingBaseModel, TypeBaseModel
 from app.sugar import override
-
+import uuid
 
 class Profile(TimesBaseModel):
     """Модель профиля."""
@@ -202,6 +202,12 @@ class Notification(TimesBaseModel):
 
         table = 'notification'
 
+class EmailValidation(TimesBaseModel):
+    """Модель валидации почты."""
+
+    code = CharField(max_length=40)
+    done = BooleanField(default=False)
+
 
 class User(TimesBaseModel):
     """Модель пользователя."""
@@ -211,6 +217,9 @@ class User(TimesBaseModel):
     last_name = CharField(max_length=30)
     password = BinaryField()
     email = CharField(max_length=30)
+    email_validated = BooleanField(default=False)
+    uuid = UUIDField(default=uuid.uuid4)
+
     profile = OneToOneField('models.Profile')
     rating = OneToOneField('models.Rating')
     ratingWeek = OneToOneField('models.RatingPerWeek')
@@ -221,6 +230,7 @@ class User(TimesBaseModel):
     notifications = ManyToManyField('models.Notification')
     likes = ManyToManyField('models.Like')
     subscribes = ManyToManyField('models.Subscription')
+    emails = ManyToManyField('models.EmailValidation')
 
     async def set_password(self, password):
         """Функция для изменения пароля пользователя."""

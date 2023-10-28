@@ -19,8 +19,15 @@ async def RegistrationAdapter(data, url: str):
             }
 
         })
-
-    return [r.json(), r.status_code]
+    uuid = None
+    email = None
+    res = r.json()
+    if r.status_code == 200:
+        uuid = res.get('uuid')
+        email = res.get('email')
+        res.pop('uuid')
+        res.pop('email')
+    return [res, r.status_code, uuid, email]
 
 
 async def LoginAdapter(data, url: str):
@@ -36,4 +43,8 @@ async def LoginAdapter(data, url: str):
             }
 
         })
+    
     return [r.json(), r.status_code]
+
+async def verify_adapter(data, url: str):
+    pass

@@ -20,3 +20,4 @@ async def registration(data: RegistrationShema, access: AdapterAccess):
 async def login(data: LoginShema, access: AdapterAccess):
     """Логин пользователя."""
     return await LoginService(data)
+
