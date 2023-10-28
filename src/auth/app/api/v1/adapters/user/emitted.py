@@ -2,6 +2,7 @@
 
 import httpx
 
+from app.api.v1.shemas import RegisterAdapterOutput
 
 async def RegistrationAdapter(data, url: str):
     """Отправка запроса на регистрацию пользователя."""
@@ -27,7 +28,8 @@ async def RegistrationAdapter(data, url: str):
         email = res.get('email')
         res.pop('uuid')
         res.pop('email')
-    return [res, r.status_code, uuid, email]
+    
+    return RegisterAdapterOutput(res=res, status_code=r.status_code, uuid=uuid, email=email)
 
 
 async def LoginAdapter(data, url: str):

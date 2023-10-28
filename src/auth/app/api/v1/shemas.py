@@ -24,3 +24,11 @@ class AdapterAccess(BaseModel):
     """Схема данных для доступа к адаптеру."""
 
     token: str
+
+class RegisterAdapterOutput(BaseModel):
+    """Данные которые возвращает адаптер регситрации."""
+
+    res: dict
+    status_code: int
+    uuid: str
+    email: str

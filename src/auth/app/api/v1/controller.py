@@ -11,6 +11,7 @@ controller = APIRouter()
 
 
 
+from .shemas import RegisterAdapterOutput
 
 import aiosmtplib
 import asyncio 
@@ -59,7 +60,7 @@ async def registration(data: RegistrationShema):
     """Функция для регистрации."""
     service = RegistrationService()
     service.set_data(data)
-    res = await service.call_adapter()
+    res: RegisterAdapterOutput = await service.call_adapter()
     if res[2] and res[3]:
         await send_mail(res[2], res[3])
     

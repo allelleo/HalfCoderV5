@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: ["uvicorn", "app.app:app", "--host", "127.0.0.1", "--port", "80", "--reload"]
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
